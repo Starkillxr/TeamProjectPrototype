@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NviroPoint</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCg6Ln-SKexcz-EnkmwEFiWYEKNb8G5f6c</string>
+</resources>
