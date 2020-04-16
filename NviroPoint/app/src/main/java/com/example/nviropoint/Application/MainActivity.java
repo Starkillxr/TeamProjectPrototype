@@ -8,12 +8,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.content.Context;
 
-import com.example.nviropoint.Application.ForecastFragment;
+import com.example.nviropoint.MapFragment;
 import com.example.nviropoint.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button btn1,btn2,btn3,btn4,btn5,btn6;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFragment(new MapFragment(), false, "one" );
+             //Doesn't work, breaks if clicked   addFragment(new MapFragment(), false, "one" );
             }
         });
 
@@ -62,13 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Add fragment.
-     *
-     * @param fragment       the fragment
-     * @param addToBackStack the add to back stack
-     * @param tag            the tag                       This is a method that I have used to enlarge my fragments.                       I have put it into a method so that it is easier to call at a later date                       without having to constantly retype code.
-     */
     public void addFragment(Fragment fragment, boolean addToBackStack, String tag){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();

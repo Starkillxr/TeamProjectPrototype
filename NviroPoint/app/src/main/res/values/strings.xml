@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">NviroPoint</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCg6Ln-SKexcz-EnkmwEFiWYEKNb8G5f6c</string>
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
     <string name="settings">Settings</string>
@@ -24,4 +23,5 @@
     <string name="humidity">Humidity</string>
     <string name="pressure">Pressure</string>
     <string name="weather_condition">Weather Condition</string>
+    <string name="sunrise">Sunrise</string>
 </resources>

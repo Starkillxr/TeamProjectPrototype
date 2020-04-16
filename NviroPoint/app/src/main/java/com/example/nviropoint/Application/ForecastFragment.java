@@ -21,9 +21,12 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ForecastFragment extends Fragment {
-    TextView temp,city,description,date,pressure,humidity,windspeed,winddirection;
+    TextView temp,city,description,date,pressure,humidity,windspeed,winddirection, Sunrise,
+    tempMin, tempMax;
 
     public ForecastFragment() {
 
@@ -45,6 +48,9 @@ public class ForecastFragment extends Fragment {
         humidity = (TextView) rootView.findViewById(R.id.humidity);
         windspeed = (TextView) rootView.findViewById(R.id.windspeed);
         winddirection = (TextView) rootView.findViewById(R.id.winddirection);
+        Sunrise = (TextView) rootView.findViewById(R.id.sunrise);
+        tempMin =(TextView) rootView.findViewById(R.id.minTemp);
+        tempMax =(TextView) rootView.findViewById(R.id.maxTemp);
         String URL = "http://api.openweathermap.org/data/2" +
                 ".5/weather?id=2640194&units=imperial&appid=faf15c72035a522d6e027c2be057069c";
 //help with json parsing found at https://www.youtube.com/watch?v=8-7Ip6xum6E
@@ -54,6 +60,8 @@ public class ForecastFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject main = response.getJSONObject("main");
+                            JSONObject sys = response.getJSONObject("sys");
+                            Long sunrise = sys.getLong("sunrise");
                             JSONArray array = response.getJSONArray("weather");
                             JSONObject object = array.getJSONObject(0);
                             String temperature = String.valueOf(main.getDouble("temp"));
@@ -64,7 +72,10 @@ public class ForecastFragment extends Fragment {
                             JSONObject wind = response.getJSONObject("wind");
                             String theSpeed = wind.getString("speed");
                             String direction = wind.getString("deg");
+                            String minTemp = String.valueOf(main.getDouble("temp_min"));
 
+
+                            Sunrise.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunrise * 1000)));
                             //temp.setText(temperature);
                             city.setText(aCity);
                             description.setText(aDescription);
@@ -74,7 +85,7 @@ public class ForecastFragment extends Fragment {
 
 
                             Calendar calendar= Calendar.getInstance();
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY", Locale.ENGLISH);
                             String aDate = sdf.format(calendar.getTime());
                             date.setText(aDate);
 
