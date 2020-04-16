@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".Volley.AppController">
+        android:name=".volley.AppController">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCg6Ln-SKexcz-EnkmwEFiWYEKNb8G5f6c"/>
-        <activity android:name=".SplashScreen.Splash" android:theme="@style/Splash">
+        <activity android:name=".splashscreen.Splash" android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

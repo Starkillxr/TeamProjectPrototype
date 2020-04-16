@@ -1,4 +1,4 @@
-package com.example.nviropoint.SplashScreen;
+package com.example.nviropoint.splashscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
