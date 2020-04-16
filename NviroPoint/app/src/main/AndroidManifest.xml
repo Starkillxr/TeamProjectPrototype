@@ -13,7 +13,7 @@
         <meta-data
             android:name="com.example.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
-        <activity android:name=".Application.MainActivity">
+        <activity android:name=".SplashScreen.Splash" android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

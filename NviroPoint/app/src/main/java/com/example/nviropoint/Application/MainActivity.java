@@ -13,26 +13,18 @@ import com.example.nviropoint.Application.ForecastFragment;
 import com.example.nviropoint.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btn1,btn2,btn3,btn4,btn5;
+    private Button btn1,btn2,btn3,btn4,btn5,btn6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Learnt how to hide the notification bar at https://stackoverflow.com/questions/4222713/hide-notification-bar
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        /**
-         * Most of this code is me practicing calling an API
-         */
 
         btn1 = findViewById(R.id.btn1);
         btn2 = findViewById(R.id.btn2);
         btn3 = findViewById(R.id.login);
-        btn4 = findViewById(R.id.signupBtn);
-        /**
-         *  the parameter addToBackStack basically allows the programmer to add to the back stack so that the user is able to reverse
-         *  the transaction and bring up the previous fragment by pressing the back button
-         */
+        btn4 = findViewById(R.id.signup);
+        btn5 = findViewById(R.id.settings);
+        btn6 = findViewById(R.id.events);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*btn5.setOnClickListener(new View.OnClickListener() {
+        btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addFragment(new SettingsFragment(), false, "one");
             }
-        });*/
+        });
 
     }
 
@@ -84,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if(addToBackStack){
             ft.addToBackStack(tag);
         }
-        ft.replace(R.id.container_frame_back,fragment,tag);
+        ft.replace(R.id.container,fragment,tag);
         ft.commitAllowingStateLoss();
 
     }
