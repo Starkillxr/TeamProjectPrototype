@@ -8,9 +8,6 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.nviropoint.R;
-
-
 
 public class SignupFragment extends Fragment {
 

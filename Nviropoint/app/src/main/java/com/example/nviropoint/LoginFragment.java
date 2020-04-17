@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.nviropoint.R;
-
 
 public class LoginFragment extends Fragment {
     private String email;

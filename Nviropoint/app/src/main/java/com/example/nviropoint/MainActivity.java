@@ -1,16 +1,14 @@
 package com.example.nviropoint;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.content.Context;
-
-import com.example.nviropoint.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Button btn1,btn2,btn3,btn4,btn5,btn6;
