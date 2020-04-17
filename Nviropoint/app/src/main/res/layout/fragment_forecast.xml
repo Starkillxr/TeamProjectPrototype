@@ -25,91 +25,93 @@
                 android:layout_height="wrap_content"
                 android:background="@color/secondaryLightColor"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:padding="4dp">
 
-                <TextView
-                    android:id="@+id/city_field"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textAppearance="?android:textAppearanceLarge"
-                    android:textColor="@color/secondaryTextColor" />
-
-                <TextView
-                    android:id="@+id/updated_field"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <Space
-                android:id="@+id/aSpacer"
-                android:layout_width="match_parent"
-                android:layout_height="12sp"
-                android:layout_below="@+id/addressContainer" />
-
-            <ImageView
-                android:id="@+id/weatherCondition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/aSpacer"
-                android:layout_centerHorizontal="true" />
-
-            <Space
-                android:id="@+id/anSpacer"
-                android:layout_width="match_parent"
-                android:layout_height="12sp"
-                android:layout_below="@id/weatherCondition" />
-
-            <LinearLayout
-                android:id="@+id/overviewContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/anSpacer"
-                android:layout_centerInParent="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/current_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/error"
-                    android:textAppearance="?android:textAppearanceLarge"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp" />
+                <ImageView
+                    android:id="@+id/weatherCondition"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="start" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/city"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal">
+                    android:orientation="vertical"
+                    android:weightSum="2">
 
                     <TextView
-                        android:id="@+id/minTemp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/city_field"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="end"
+                        android:textAppearance="?android:textAppearanceMedium"
                         android:textColor="@color/secondaryTextColor" />
 
-                    <Space
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/updated_field"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/secondaryTextColor"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:id="@+id/overviewContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/maxTemp"
-                        android:layout_width="0dp"
+                        android:id="@+id/current_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/error"
+                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textColor="@color/secondaryTextColor"
+                        android:textSize="30sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:textColor="@color/secondaryTextColor"
-                        android:gravity="start"/>
+                        android:orientation="vertical"
+                        android:padding="4dp">
 
+                        <TextView
+                            android:id="@+id/minTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="15sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="5dp" />
+
+                        <TextView
+                            android:id="@+id/maxTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -117,13 +119,50 @@
                 android:id="@+id/anotherSpacer"
                 android:layout_width="match_parent"
                 android:layout_height="12sp"
-                android:layout_below="@id/overviewContainer" />
+                android:layout_below="@id/addressContainer" />
+
+            <LinearLayout
+                android:id="@+id/aqiback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/anotherSpacer"
+                android:layout_centerHorizontal="true"
+                android:background="@color/secondaryLightColor"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/air_quality_index"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="25sp" />
+
+                <Space
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/aqi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <Space
+                android:id="@+id/aSpacer"
+                android:layout_width="match_parent"
+                android:layout_height="12sp"
+                android:layout_below="@id/aqiback" />
+
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/anotherSpacer"
+                android:layout_below="@+id/aSpacer"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="20sp" />
 
@@ -139,133 +178,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Spacer"
                 android:layout_alignParentBottom="true"
-                android:orientation="vertical">
+                android:orientation="vertical"><![CDATA[>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/secondaryLightColor"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@string/pressure"
-                            android:src="@drawable/ic_pressure"
-                            android:tint="@color/secondaryTextColor" />
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pressure"
-                            android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/pressure"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/error"
-                            android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <Space
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/secondaryLightColor"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@string/humidity"
-                            android:src="@drawable/ic_action_name"
-                            android:tint="@color/secondaryTextColor" />
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/humidity"
-                            android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/humidity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/error"
-                            android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <Space
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/secondaryLightColor"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@string/information"
-                            android:src="@drawable/ic_info"
-                            android:tint="@color/secondaryTextColor" />
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/created_by"
-                            android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/about"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/team_60"
-                            android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
+                ]]>
 
                 <Space
-                    android:id="@+id/oneSpacer"
                     android:layout_width="match_parent"
                     android:layout_height="5dp" />
 
@@ -395,10 +312,12 @@
                 </LinearLayout>
 
                 <Space
+                    android:id="@+id/oneSpacer"
                     android:layout_width="match_parent"
                     android:layout_height="5dp" />
 
                 <LinearLayout
+                    android:id="@+id/details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -516,11 +435,204 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp"
+                            tools:ignore="TooManyViews" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <LinearLayout
+                    android:id="@+id/moreDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/secondaryLightColor"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@string/pressure"
+                            android:src="@drawable/ic_pressure"
+                            android:tint="@color/secondaryTextColor" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pressure"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/pressure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/error"
+                            android:textColor="@color/secondaryTextColor"
                             android:textSize="12sp" />
                     </LinearLayout>
 
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/secondaryLightColor"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@string/humidity"
+                            android:src="@drawable/ic_action_name"
+                            android:tint="@color/secondaryTextColor" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/humidity"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/humidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/error"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/secondaryLightColor"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@string/information"
+                            android:src="@drawable/ic_info"
+                            android:tint="@color/secondaryTextColor" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/created_by"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/about"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/team_60"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <LinearLayout
+                    android:id="@+id/extraDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/secondaryLightColor"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@string/rainfall"
+                            android:src="@drawable/ic_rainfall"/>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rainfall"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/rainfall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="@color/secondaryTextColor"/>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/secondaryLightColor">
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
             </LinearLayout>
+
         </RelativeLayout>
 
         <ProgressBar

@@ -1,11 +1,13 @@
 package com.example.nviropoint;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -27,9 +29,10 @@ import java.util.Locale;
 
 public class ForecastFragment extends Fragment {
     TextView temp,city,description,date,pressure,humidity,windspeed,winddirection, Sunrise, Sunset,
-            tempMin, tempMax;
+            tempMin, tempMax, windGust, cloudiness, aqi, rainfall;
 
     ImageView icon;
+    LinearLayout aqiBack;
     public ForecastFragment() {
 
     }
@@ -55,6 +58,11 @@ public class ForecastFragment extends Fragment {
         tempMax =(TextView) rootView.findViewById(R.id.maxTemp);
         Sunset = rootView.findViewById(R.id.sunset);
         icon = rootView.findViewById(R.id.weatherCondition);
+        windGust = rootView.findViewById(R.id.windgust);
+        cloudiness = rootView.findViewById(R.id.cloudiness);
+        aqi = rootView.findViewById(R.id.aqi);
+        aqiBack = rootView.findViewById(R.id.aqiback);
+        rainfall = rootView.findViewById(R.id.rainfall);
         String URL = "http://api.openweathermap.org/data/2.5/weather?id=2640194&units=imperial&appid=faf15c72035a522d6e027c2be057069c";
 //help with json parsing found at https://www.youtube.com/watch?v=8-7Ip6xum6E
         JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, URL, null,
@@ -88,12 +96,21 @@ public class ForecastFragment extends Fragment {
                             // objec from inside the response object
                             String theSpeed = wind.getString("speed");
                             // gets the wind speed from inside the wind obj
+                            String gust = wind.getString("gust");
                             String direction = wind.getString("deg"); // gets the direction from
                             // inside the wind json object
                             String minTemp = String.valueOf(main.getDouble("temp_min")); // gets
                             // the min temp from inside the main json object
                             String maxTemp = String.valueOf(main.getDouble("temp_max"));// gets
                             // the max temp from inside the main json object
+                            JSONObject cloud = response.getJSONObject("clouds"); // getting the
+                            // cloud object
+                            int clouds = cloud.getInt("all"); // gets the cloudiness %
+                            cloudiness.setText(String.valueOf(clouds) + " %"); // sets the
+                            // cloudiness %
+                            JSONObject rain = response.getJSONObject("rain");
+                            double threeHour = rain.getDouble("3h");
+                            rainfall.setText(threeHour + " mm");
                             String aicon = object.getString("icon");
                             //information on images and codes found at https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
                             //Sets the image based on code is parsed from the icon string
@@ -117,6 +134,28 @@ public class ForecastFragment extends Fragment {
                             else if ((aicon.equals("04d")) &! (aicon.equals("04n"))){
                                 icon.setImageResource(R.drawable.brokenclouds);
                             }
+                            else if((aicon.equals("09d")) &! (aicon.equals("09n")))
+                            {
+                                icon.setImageResource(R.drawable.rainshower);
+                            }
+                            else if(aicon.equals("10d")){
+                                icon.setImageResource(R.drawable.rainyday);
+                            }
+                            else if(aicon.equals("10n")){
+                                icon.setImageResource(R.drawable.rainynight);
+                            }
+                            else if((aicon.equals("11d")) &! (aicon.equals("11n")))
+                            {
+                                icon.setImageResource(R.drawable.thunderstorm);
+                            }
+                            else if((aicon.equals("13d")) &! (aicon.equals("13n")))
+                            {
+                                icon.setImageResource(R.drawable.snow);
+                            }
+                            else if((aicon.equals("50d")) &! (aicon.equals("50n")))
+                            {
+                                icon.setImageResource(R.drawable.mist);
+                            }
 
                             Sunset.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunset * 1000)));// converts the unix time
                             Sunrise.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunrise * 1000))); // converts the unix time
@@ -126,6 +165,7 @@ public class ForecastFragment extends Fragment {
                             pressure.setText(thePressure + " hPa");
                             humidity.setText(theHumidity +"%");
                             windspeed.setText(theSpeed + " mph");
+                            windGust.setText(gust + " mph");
 
 
                             Calendar calendar= Calendar.getInstance();
@@ -211,6 +251,52 @@ public class ForecastFragment extends Fragment {
         }
         );
         AppController.getInstance(this).addToRequestQueue(jor);
+        String url2 = "https://api.waqi" +
+                ".info/search/?token=eac131ace352b7123d4a13188a322b6c4c7f6549" +
+                "&keyword=Plymouth";
+        JsonObjectRequest jor2 = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    int air = jsonObject.getInt("aqi");
+                    aqi.setText(String.valueOf(air));
+
+                    //Sets the background based on the AQI level
+                    if((0 > air) && (air <= 50)){
+                        aqiBack.setBackgroundColor(Color.parseColor("#008800"));
+                    }
+                    else if ((51 >= air) && (air <= 100)){
+                        aqiBack.setBackgroundColor(Color.parseColor("#FFFF00"));
+                    }
+                    else if ((101 >= air) && (air <=150)){
+                        aqiBack.setBackgroundColor(Color.parseColor("#FF8000"));
+                    }
+                    else if ((151 >= air) && (air <=200)){
+                        aqiBack.setBackgroundColor(Color.parseColor("#FF0000"));
+                    }
+                    else if ((201 >= air) && (air <= 300)){
+                        aqiBack.setBackgroundColor(Color.parseColor("#8000FF"));
+                    } else if (300 < air) {
+                        aqiBack.setBackgroundColor(Color.parseColor("#3b0000"));
+                    }
+
+
+                }catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }
+        );
+        AppController.getInstance(this).addToRequestQueue(jor2);
         return rootView;
     }
 

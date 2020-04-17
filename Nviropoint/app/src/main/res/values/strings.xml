@@ -26,4 +26,6 @@
     <string name="sunset">Sunset</string>
     <string name="wind_gusts">Wind gusts</string>
     <string name="cloudiness">Cloudiness</string>
+    <string name="air_quality_index">Air Quality Index</string>
+    <string name="rainfall">Rainfall(3h)</string>
 </resources>
