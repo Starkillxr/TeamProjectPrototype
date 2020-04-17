@@ -1,9 +1,11 @@
 package com.example.nviropoint;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -24,9 +26,10 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ForecastFragment extends Fragment {
-    TextView temp,city,description,date,pressure,humidity,windspeed,winddirection, Sunrise,
+    TextView temp,city,description,date,pressure,humidity,windspeed,winddirection, Sunrise, Sunset,
             tempMin, tempMax;
 
+    ImageView icon;
     public ForecastFragment() {
 
     }
@@ -50,31 +53,73 @@ public class ForecastFragment extends Fragment {
         Sunrise = (TextView) rootView.findViewById(R.id.sunrise);
         tempMin =(TextView) rootView.findViewById(R.id.minTemp);
         tempMax =(TextView) rootView.findViewById(R.id.maxTemp);
-        String URL = "http://api.openweathermap.org/data/2" +
-                ".5/weather?id=2640194&units=imperial&appid=faf15c72035a522d6e027c2be057069c";
+        Sunset = rootView.findViewById(R.id.sunset);
+        icon = rootView.findViewById(R.id.weatherCondition);
+        String URL = "http://api.openweathermap.org/data/2.5/weather?id=2640194&units=imperial&appid=faf15c72035a522d6e027c2be057069c";
 //help with json parsing found at https://www.youtube.com/watch?v=8-7Ip6xum6E
         JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONObject main = response.getJSONObject("main");
-                            JSONObject sys = response.getJSONObject("sys");
-                            Long sunrise = sys.getLong("sunrise");
-                            JSONArray array = response.getJSONArray("weather");
-                            JSONObject object = array.getJSONObject(0);
-                            String temperature = String.valueOf(main.getDouble("temp"));
-                            String aDescription = object.getString("description");
-                            String aCity = response.getString("name");
-                            String thePressure = main.getString("pressure");
-                            String theHumidity = main.getString("humidity");
-                            JSONObject wind = response.getJSONObject("wind");
+                            JSONObject main = response.getJSONObject("main"); // parsses the main
+                            // json object from the response
+                            JSONObject sys = response.getJSONObject("sys"); // parses the object
+                            // sys from the response
+                            long sunset = sys.getLong("sunset"); // gets the sunset from the json
+                            // object
+                            Long sunrise = sys.getLong("sunrise"); // gets the sunrise from the
+                            // json Object
+                            JSONArray array = response.getJSONArray("weather"); // gets the
+                            // weather array from the response
+                            JSONObject object = array.getJSONObject(0);// gets the objects from
+                            // the weather array
+                            String temperature = String.valueOf(main.getDouble("temp"));// gets
+                            // the temperature value from the main json object
+                            String aDescription = object.getString("description");// gets the
+                            // description from the object inside the jsonArray
+                            String aCity = response.getString("name");// gets the city from the
+                            // main response object
+                            String thePressure = main.getString("pressure");// gets the pressure
+                            // from inside the main json object
+                            String theHumidity = main.getString("humidity");// gets the humidity
+                            // from inside the main json object
+                            JSONObject wind = response.getJSONObject("wind");// gets the wind
+                            // objec from inside the response object
                             String theSpeed = wind.getString("speed");
-                            String direction = wind.getString("deg");
-                            String minTemp = String.valueOf(main.getDouble("temp_min"));
+                            // gets the wind speed from inside the wind obj
+                            String direction = wind.getString("deg"); // gets the direction from
+                            // inside the wind json object
+                            String minTemp = String.valueOf(main.getDouble("temp_min")); // gets
+                            // the min temp from inside the main json object
+                            String maxTemp = String.valueOf(main.getDouble("temp_max"));// gets
+                            // the max temp from inside the main json object
+                            String aicon = object.getString("icon");
+                            //information on images and codes found at https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+                            //Sets the image based on code is parsed from the icon string
+                            if(aicon == "01d"){
+                                icon.setImageResource(R.drawable.clearday);
+                            }
+                            else if(aicon.equals("01n")){
+                                icon.setImageResource(R.drawable.clearnight);
+                            }
+                            else if(aicon.equals("02d")){
+                                icon.setImageResource(R.drawable.fewcloudday);
+                            }
+                            else if (aicon.equals("02n"))
+                            {
+                                icon.setImageResource(R.drawable.fewcloudnight);
+                            }
+                            else if ((aicon.equals("03d")) &! (aicon.equals("o3n")))
+                            {
+                                icon.setImageResource(R.drawable.scatteredcloudday);
+                            }
+                            else if ((aicon.equals("04d")) &! (aicon.equals("04n"))){
+                                icon.setImageResource(R.drawable.brokenclouds);
+                            }
 
-
-                            Sunrise.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunrise * 1000)));
+                            Sunset.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunset * 1000)));// converts the unix time
+                            Sunrise.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunrise * 1000))); // converts the unix time
                             //temp.setText(temperature);
                             city.setText(aCity);
                             description.setText(aDescription);
@@ -95,8 +140,27 @@ public class ForecastFragment extends Fragment {
                             String celsius = String.valueOf(i);
                             temp.setText(celsius + "°C");
 
+                            double minTemp_int = Double.parseDouble(minTemp);// parses the string
+                            // to an int
+                            double minCels = (minTemp_int - 32)/1.8000; // converts from
+                            // farenheit to cels
+                            minCels = Math.round(minCels);// rounds up
+                            int j = (int) minCels; // declares min cels as variable j
+                            String minCelsius = String.valueOf(j); // makes the string the value
+                            // of int j
+                            tempMin.setText("Min: " + minCelsius + "°C"); // sets the min
+                            // temperature
+
+                            double maxTemp_int = Double.parseDouble(maxTemp);
+                            double maxCels = (maxTemp_int -32) / 1.8000;
+                            maxCels = Math.round(maxCels);
+                            int k = (int) maxCels;
+                            String maxCelsius = String.valueOf(k);
+                            tempMax.setText("Max: " + maxCelsius  +"°C" );
+
                             int directionInDegrees = Integer.parseInt(direction);
 // conversion for direction found at https://blog.catzie.net/java-method-to-convert-degrees-into-directions-16-wind-compass-rose/
+                            // converts the degrees into cardinal points on a compass
                             if( (directionInDegrees >= 348.75) && (directionInDegrees <= 360) ||
                                     (directionInDegrees >= 0) && (directionInDegrees <= 11.25)    ){
                                 winddirection.setText("N");
