@@ -594,7 +594,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:contentDescription="@string/rainfall"
-                            android:src="@drawable/ic_rainfall"/>
+                            android:src="@drawable/ic_rainfall" />
 
                         <Space
                             android:layout_width="wrap_content"
@@ -611,8 +611,8 @@
                             android:id="@+id/rainfall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:textColor="@color/secondaryTextColor"/>
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -620,6 +620,16 @@
                         android:layout_width="5dp"
                         android:layout_height="wrap_content" />
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/secondaryLightColor">
+
+                    </LinearLayout>
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content" />
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
