@@ -45,17 +45,17 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_forecast, container, false);
-        temp = (TextView) rootView.findViewById(R.id.current_temperature);
-        city = (TextView) rootView.findViewById(R.id.city_field);
-        description = (TextView) rootView.findViewById(R.id.description);
-        date = (TextView) rootView.findViewById(R.id.updated_field);
-        pressure = (TextView) rootView.findViewById(R.id.pressure);
-        humidity = (TextView) rootView.findViewById(R.id.humidity);
-        windspeed = (TextView) rootView.findViewById(R.id.windspeed);
-        winddirection = (TextView) rootView.findViewById(R.id.winddirection);
-        Sunrise = (TextView) rootView.findViewById(R.id.sunrise);
-        tempMin =(TextView) rootView.findViewById(R.id.minTemp);
-        tempMax =(TextView) rootView.findViewById(R.id.maxTemp);
+        temp = rootView.findViewById(R.id.current_temperature);
+        city = rootView.findViewById(R.id.city_field);
+        description = rootView.findViewById(R.id.description);
+        date = rootView.findViewById(R.id.updated_field);
+        pressure = rootView.findViewById(R.id.pressure);
+        humidity = rootView.findViewById(R.id.humidity);
+        windspeed = rootView.findViewById(R.id.windspeed);
+        winddirection = rootView.findViewById(R.id.winddirection);
+        Sunrise = rootView.findViewById(R.id.sunrise);
+        tempMin = rootView.findViewById(R.id.minTemp);
+        tempMax = rootView.findViewById(R.id.maxTemp);
         Sunset = rootView.findViewById(R.id.sunset);
         icon = rootView.findViewById(R.id.weatherCondition);
         windGust = rootView.findViewById(R.id.windgust);
@@ -93,10 +93,10 @@ public class ForecastFragment extends Fragment {
                             String theHumidity = main.getString("humidity");// gets the humidity
                             // from inside the main json object
                             JSONObject wind = response.getJSONObject("wind");// gets the wind
-                            // objec from inside the response object
+                            // object from inside the response object
                             String theSpeed = wind.getString("speed");
                             // gets the wind speed from inside the wind obj
-                            String gust = wind.getString("gust");
+                            //String gust = wind.getString("gust");
                             String direction = wind.getString("deg"); // gets the direction from
                             // inside the wind json object
                             String minTemp = String.valueOf(main.getDouble("temp_min")); // gets
@@ -106,15 +106,16 @@ public class ForecastFragment extends Fragment {
                             JSONObject cloud = response.getJSONObject("clouds"); // getting the
                             // cloud object
                             int clouds = cloud.getInt("all"); // gets the cloudiness %
-                            cloudiness.setText(String.valueOf(clouds) + " %"); // sets the
+                            cloudiness.setText(clouds + " %"); // sets the
                             // cloudiness %
-                            JSONObject rain = response.getJSONObject("rain");
-                            double threeHour = rain.getDouble("3h");
-                            rainfall.setText(threeHour + " mm");
+                            //JSONObject rain = response.getJSONObject("rain");
+                            //double threeHour = rain.getDouble("3h");
+                            //rainfall.setText(threeHour + " mm");
                             String aicon = object.getString("icon");
                             //information on images and codes found at https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
                             //Sets the image based on code is parsed from the icon string
-                            if(aicon == "01d"){
+
+                            if(aicon.equals("01d")){
                                 icon.setImageResource(R.drawable.clearday);
                             }
                             else if(aicon.equals("01n")){
@@ -165,7 +166,7 @@ public class ForecastFragment extends Fragment {
                             pressure.setText(thePressure + " hPa");
                             humidity.setText(theHumidity +"%");
                             windspeed.setText(theSpeed + " mph");
-                            windGust.setText(gust + " mph");
+                            //windGust.setText(gust + " mph");
 
 
                             Calendar calendar= Calendar.getInstance();

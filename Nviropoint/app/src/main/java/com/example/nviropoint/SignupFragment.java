@@ -31,10 +31,10 @@ public class SignupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_signup, container,false);
-        email = (EditText) rootView.findViewById(R.id.emailin);
-        confirmEmail = (EditText) rootView.findViewById(R.id.conEmail);
-        password = (EditText) rootView.findViewById(R.id.pswrd);
-        confirmPassword = (EditText) rootView.findViewById(R.id.conPswrd);
+        email = rootView.findViewById(R.id.emailin);
+        confirmEmail = rootView.findViewById(R.id.conEmail);
+        password = rootView.findViewById(R.id.pswrd);
+        confirmPassword = rootView.findViewById(R.id.conPswrd);
         return rootView;
     }
 

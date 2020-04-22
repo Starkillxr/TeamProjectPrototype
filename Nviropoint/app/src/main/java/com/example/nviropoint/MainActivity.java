@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Doesn't work, breaks if clicked   addFragment(new MapFragment(), false, "one" );
+                addFragment(new MapFragment(), false, "one" );
             }
         });
 
