@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -26,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
+
 
 public class ForecastFragment extends Fragment {
     TextView temp,city,description,date,pressure,humidity,windspeed,winddirection, Sunrise, Sunset,
@@ -41,6 +45,7 @@ public class ForecastFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +68,7 @@ public class ForecastFragment extends Fragment {
         aqi = rootView.findViewById(R.id.aqi);
         aqiBack = rootView.findViewById(R.id.aqiback);
         rainfall = rootView.findViewById(R.id.rainfall);
+
         String URL = "http://api.openweathermap.org/data/2.5/weather?id=2640194&units=imperial&appid=faf15c72035a522d6e027c2be057069c";
 //help with json parsing found at https://www.youtube.com/watch?v=8-7Ip6xum6E
         JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, URL, null,
@@ -97,6 +103,14 @@ public class ForecastFragment extends Fragment {
                             String theSpeed = wind.getString("speed");
                             // gets the wind speed from inside the wind obj
                             //String gust = wind.getString("gust");
+                            if (wind.has("gust"))
+                            {
+                                String gust = wind.getString("gust");
+                                windGust.setText(gust + " mph");
+                            }
+                            else{
+                                windGust.setText("0 mph \n(Data Not Found)");
+                            }
                             String direction = wind.getString("deg"); // gets the direction from
                             // inside the wind json object
                             String minTemp = String.valueOf(main.getDouble("temp_min")); // gets
@@ -108,9 +122,31 @@ public class ForecastFragment extends Fragment {
                             int clouds = cloud.getInt("all"); // gets the cloudiness %
                             cloudiness.setText(clouds + " %"); // sets the
                             // cloudiness %
-                            //JSONObject rain = response.getJSONObject("rain");
-                            //double threeHour = rain.getDouble("3h");
-                            //rainfall.setText(threeHour + " mm");
+                            if(response.has("rain")){
+                                JSONObject rain = response.getJSONObject("rain");
+                               if((rain.has("1h")) && (rain.has("3h"))){
+                                   double oneHour = rain.getDouble("1h");
+                                   double threeHour = rain.getDouble("3h");
+                                   rainfall.setText("1h: " + oneHour  +" mm \n3h: " + threeHour +
+                                           " mm");
+                               }
+                               else if ((rain.has("3h")))
+                               {
+                                   double threeHour = rain.getDouble("3h");
+                                   rainfall.setText("1h: 0 mm \n 3h: " + threeHour + " mm \n(1h " +
+                                           "Data Not Available)");
+                               }
+                               else if(rain.has("1h"))
+                               {
+                                   double oneHour = rain.getDouble("1h");
+                                   rainfall.setText("1h: " + oneHour + " mm \n 3h: 0 mm\n (3h " +
+                                           "Data Not Available)");
+                               }
+                            }
+                            else
+                            {
+                                rainfall.setText("1h: 0mm \n3h: 0mm\n (Data Not Available)");
+                            }
                             String aicon = object.getString("icon");
                             //information on images and codes found at https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
                             //Sets the image based on code is parsed from the icon string
@@ -166,7 +202,7 @@ public class ForecastFragment extends Fragment {
                             pressure.setText(thePressure + " hPa");
                             humidity.setText(theHumidity +"%");
                             windspeed.setText(theSpeed + " mph");
-                            //windGust.setText(gust + " mph");
+
 
 
                             Calendar calendar= Calendar.getInstance();

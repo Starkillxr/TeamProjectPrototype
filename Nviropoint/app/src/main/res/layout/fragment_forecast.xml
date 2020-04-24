@@ -536,7 +536,9 @@
                         android:background="@color/secondaryLightColor2"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="2dp">
+                        android:padding="2dp"
+                        android:id="@+id/information"
+                        android:onClick="showToast">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -599,18 +601,14 @@
                             android:layout_height="3dp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/rainfall"
-                            android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
-
-                        <TextView
                             android:id="@+id/rainfall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/secondaryTextColor"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textAlignment="gravity"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"/>
 
                     </LinearLayout>
 

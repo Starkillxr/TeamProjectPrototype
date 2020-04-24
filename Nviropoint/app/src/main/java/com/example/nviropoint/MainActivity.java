@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFragment(new SettingsFragment(), false, "one");
+                //addFragment(new SettingsFragment(), false, "one");
             }
         });
 
